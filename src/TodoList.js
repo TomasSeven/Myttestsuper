@@ -3,50 +3,58 @@ import React from 'react';
 import TodoItems from './TodoItems'
 
 class TodoList extends React.Component {
-
-  state = {
+  constructor(props) {
+    super(props);
+  this.state = {
     items: [],
-    item: "",
-    description: "",
-    link: ""
+    stockName: "",
+    numberOfStock: "",
+    value: "",
+    date: "",
+
   };
 
-  updateValue = (e) => {
+  this.updateValue = (e) => {
     this.setState({
       [e.target.id]: e.target.value.toUpperCase()
     });
   }
 
-  addItem = (e) => {
+  this.addItem = (e) => {
     var itemArray = this.state.items;
     itemArray.push({
-      item: this.state.item,
-      description: this.state.description,
-      link: this.state.link
+      stockName: this.state.stockName,
+      numberOfStock: this.state.numberOfStock,
+      value: this.state.value,
+      date: this.state.date,
+
     });
 
     this.setState({
       items: itemArray,
-      item: "",
-      description: "",
-      link: ""
+      stockName: "",
+      numberOfStock: "",
+      value:"",
+      date: ""
     });
   }
-
+  }
   render() {
     return (
       <div className="todoListMain">
         <div className="header"
           onChange={this.updateValue}>
-          <input id="item" placeholder="item" value={this.state.item} />
-          <input id="description" placeholder="description" value={this.state.description} />
-          <input id="link" placeholder="link" value={this.state.link} />
+          <input id="stockName" placeholder="Stock name" value={this.state.stockName} />
+          <input id="numberOfStock" placeholder="Number of stock" value={this.state.numberOfStock} />
+          <input id="value" placeholder="Stock price at purchase" value={this.state.value} />
+          <input id="date" placeholder="Date of purchase" value={this.state.date} />
           <button onClick={this.addItem}>add</button>
         </div>
         <TodoItems entries={this.state.items} />
       </div>
     );
   }
+  
 };
 
 export default TodoList;
