@@ -1,17 +1,19 @@
 
 import React from 'react';
 import TodoItems from './TodoItems'
+import ShowData from './ShowData'
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-  this.state = {
-    items: [],
+   this.state = {
+    items: [], 
     stockName: "",
     numberOfStock: "",
     value: "",
     date: ""
   };
+
 
   this.handleKeyUp = this.handleKeyUp.bind(this);
   this.updateValue = this.updateValue.bind(this);
@@ -19,7 +21,7 @@ class TodoList extends React.Component {
   }
 
 addItem = (e) => {
-  var itemArray = this.state.items;
+  var itemArray = this.props.items;
   itemArray.push({
     stockName: this.state.stockName,
     numberOfStock: this.state.numberOfStock,
@@ -61,10 +63,13 @@ addItem = (e) => {
           <button onClick={this.addItem}>add</button>
         </div>
         <TodoItems entries={this.state.items} />
+        <ShowData stockList={this.state.items}/>
       </div>
     );
   }
   
 };
-
+/*
+<TodoItems entries={this.state.items} />
+  <ShowData entries={this.state.items} />*/
 export default TodoList;

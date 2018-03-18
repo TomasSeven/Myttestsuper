@@ -7,9 +7,10 @@ class TodoItems extends React.Component {
 
     /*<a href={entry.link}>{entry.stockName}</a>: {entry.numberOfStock}*/
   render() {
-    console.log(this.props.entries);
+    /* console.log(this.props.entries); */
     var todoEntries = this.props.entries;
     var listItems = [];
+   /* console.log(todoEntries.length); */
 
     for (var i = 0; i < todoEntries.length; i++) {
       var entry = todoEntries[i];

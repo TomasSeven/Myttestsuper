@@ -2,30 +2,15 @@ import React from 'react';
 import Formsy from 'formsy-react';
 import { render } from 'react-dom';
 import Hello from './Hello';
-import Knapp from './Button';
 import Enterstock from './Button';
-import NameForm from './NameForm'
-import MyInput from './MyInput';
-import StockList from './StockList';
-import StockItems from './StockItems';
 import TodoList from './TodoList';
+import ShowData from './ShowData';
 import "./StockList.css";
 
 const styles = {
   fontFamily: 'sans-serif',
   textAlign: 'center',
 };
-
-const App = () => (
-  <div style={styles}>
-    <Hello name="Test"/>
-    <h2>Start editing to see some magic happen {'\u2728'}</h2>
-    <input />
-    <Enterstock label="Add stock"/>
-    <NameForm />
-    <MyInput name="Test"/>
-  </div>
-);
 
 /*
 export default class App2 extends React.Component {
@@ -76,7 +61,18 @@ export default class App2 extends React.Component {
 export default class App3 extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      items: [],
+      stockName: "",
+      numberOfStock: "",
+      value: "",
+      date: ""
+    };
+
+
   }
+
+
     disableButton() {
       this.setState({ canSubmit: false });
     }
@@ -93,8 +89,7 @@ render() {
     <div style={styles}>
     <Hello name="Test" />
     <h2>Start editing to see some magic happen {'\u2728'}</h2>
-      <StockList />
-      <TodoList />
+    <TodoList items={this.state.items}/>
     </div>
 
   );
@@ -107,6 +102,28 @@ ReactDOM.render((
     <TodoList />
   </div>
 ), destination);
+*/
+
+/*
+fetch(
+  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=XXXX"
+)
+  .then(function (response) {
+    if (response.status !== 200) {
+      console.log(
+        "Looks like there was a problem. Status Code: " + response.status
+      );
+      return;
+    }
+
+    // Examine the text in the response
+    response.json().then(function (data) {
+      console.log(data);
+    });
+  })
+  .catch(function (err) {
+    console.log("Fetch Error :-S", err);
+  });
 */
 
 render(<App3 />, document.getElementById('root'));
