@@ -15,8 +15,11 @@ class TodoItems extends React.Component {
       var entry = todoEntries[i];
       listItems.push(<li key={"stockName" + i}>
              <a>{entry.stockName}</a>
+             <a> </a>
              <a>{entry.numberOfStock}</a>
+             <a> </a>
              <a>{entry.value}</a>
+             <a> </a>
              <a>{entry.date}</a>
       </li>);
     }
