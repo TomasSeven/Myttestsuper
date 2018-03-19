@@ -2,13 +2,32 @@ import React from 'react';
 import TodoList from './TodoList';
 import FetchData from './FetchData'
 
+class Fetch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      information: []
+    };
+  }
+  render() {
+    console.log(this.props.url);
+    fetch(this.props.url).then(results => {
+      console.log(results.json);
+      return results.json();
+    } );
+return(
+<div>Test</div>
 
+);
+
+  };
+}
 
 class Api extends React.Component {
   render() {
     return (
-      <Fetch url="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=XXXX">
-        <ApiResponse />
+      <Fetch url="https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=xx">
+       // <ApiResponse />
       </Fetch>
     )
   }
@@ -58,4 +77,4 @@ class ShowData extends React.Component {
 
 };
 
-export default ShowData;
+export default Api;

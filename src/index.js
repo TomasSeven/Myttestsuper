@@ -5,11 +5,12 @@ import Hello from './Hello';
 import Enterstock from './Button';
 import TodoList from './TodoList';
 import ShowData from './ShowData';
+import Api from './ShowData';
 import "./StockList.css";
 
 const styles = {
   fontFamily: 'sans-serif',
-  textAlign: 'center',
+  textAlign: 'center'
 };
 
 /*
@@ -35,24 +36,6 @@ export default class App2 extends React.Component {
     });
   }
 
-  render() {
-    return (
-      <div style={styles}>
-        <Hello name="Test" />
-        <h2>Start editing to see some magic happen {'\u2728'}</h2>
-      <Formsy onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
-        <MyInput
-          name="stock"
-          validations="isEmail"
-          validationError="This is not a valid stock"
-          required
-        />
-        <button type="submit" disabled={!this.state.canSubmit}>Submit</button>
-      </Formsy>
-      <NameForm label="Myinput" />
-      <Enterstock label="Add stock" />
-      </div>
-    );
   }
 }
 */
@@ -90,8 +73,9 @@ render() {
     <Hello name="Test" />
     <h2>Start editing to see some magic happen {'\u2728'}</h2>
     <TodoList items={this.state.items}/>
+    <Api />
     </div>
-
+  
   );
 
 }

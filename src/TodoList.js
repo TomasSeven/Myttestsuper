@@ -63,11 +63,11 @@ addItem = (e) => {
           <button onClick={this.addItem}>add</button>
         </div>
         <TodoItems entries={this.state.items} />
-        <ShowData stockList={this.state.items}/>
+        
       </div>
     );
   }
-  
+ // <ShowData stockList={this.state.items} />
 };
 /*
 <TodoItems entries={this.state.items} />
