@@ -1,16 +1,18 @@
-import React from 'react';
-import Formsy from 'formsy-react';
-import { render } from 'react-dom';
-import Hello from './Hello';
-import Enterstock from './Button';
-import TodoList from './TodoList';
-import ShowData from './ShowData';
-import Api from './ShowData';
+import React from "react";
+import Formsy from "formsy-react";
+import { render } from "react-dom";
+import Hello from "./Hello";
+import Enterstock from "./Button";
+import TodoList from "./TodoList";
+import Getinfo from "./Newtestfile";
+import Addstock2 from "./Newform2";
 import "./StockList.css";
+//import ShowData from './ShowData';
+//import Api from './ShowData';
 
 const styles = {
-  fontFamily: 'sans-serif',
-  textAlign: 'center'
+  fontFamily: "sans-serif",
+  textAlign: "center"
 };
 
 /*
@@ -40,7 +42,6 @@ export default class App2 extends React.Component {
 }
 */
 
-
 export default class App3 extends React.Component {
   constructor(props) {
     super(props);
@@ -51,35 +52,29 @@ export default class App3 extends React.Component {
       value: "",
       date: ""
     };
-
-
   }
 
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
 
-    disableButton() {
-      this.setState({ canSubmit: false });
-    }
-
-    enableButton() {
-      this.setState({ canSubmit: true });
-    }
-
-  
-
-
-render() {
-  return (
-    <div style={styles}>
-    <Hello name="Test" />
-    <h2>Start editing to see some magic happen {'\u2728'}</h2>
-    <TodoList items={this.state.items}/>
-    <Api />
-    </div>
-  
-  );
-
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+ // console.log(this.state.items);
+  render() {
+    return (
+      <div style={styles} className="App3">
+        <Hello name="Test" />
+        <h2>Start editing to see some magic happen {"\u2728"}</h2>
+        <TodoList items={this.state.items} />
+        <Getinfo apikey="xxxx" stock={this.state.items}/>
+        <Addstock2 />
+      </div>
+    );
+    // <GetData username="xxxx"></GetData>
+  }
 }
-  }
 /*
 ReactDOM.render((
   <div>
@@ -110,4 +105,4 @@ fetch(
   });
 */
 
-render(<App3 />, document.getElementById('root'));
+render(<App3 />, document.getElementById("root"));

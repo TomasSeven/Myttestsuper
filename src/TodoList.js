@@ -1,17 +1,17 @@
 
 import React from 'react';
 import TodoItems from './TodoItems'
-import ShowData from './ShowData'
+//import ShowData from './ShowData'
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-   this.state = {
+    this.state = {
     items: [], 
     stockName: "",
     numberOfStock: "",
     value: "",
-    date: ""
+    date: "" 
   };
 
 
@@ -62,8 +62,7 @@ addItem = (e) => {
           <input id="date" placeholder="Date of purchase" value={this.state.date} />
           <button onClick={this.addItem}>add</button>
         </div>
-        <TodoItems entries={this.state.items} />
-        
+        <TodoItems entries={this.state.items} />    
       </div>
     );
   }
