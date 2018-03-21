@@ -6,21 +6,46 @@ const urlForApikey = apikey =>
   `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=${apikey}`;
 //xxx
 
+const stockar = stocks => this.state.stocks;
+
+
+
 
 class Getinfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stocks: this.props.stocks,
-      requestFailed: false
+      stocks: [],
+      requestFailed: false,
+     info:[]
     };
+    this.getStocks = this.getStocks.bind(this);
   }
 
+ // getStocks = e => {};
 
-  componentDidMount() {
+/*
+  componentWillReceiveProps(nextProps){
+    console.log("Testing1");
+    var info = this.nextProps.stocks;
+    // console.log(this.props.stock);
+    console.log(this.nextProps.info);
+
+  }
+*/
+
+ // componentDidMount() {
+  getStocks = event => { 
+    console.log(event);
+    if (event === 13)
+
+  {
+    console.log("Testing2");
     var info = this.props.stocks;
    // console.log(this.props.stock);
     console.log(this.props.info);
+  //  console.log(stockar(this.props.stocks));
+    console.log(urlForApikey(this.props.apikey));
     fetch(urlForApikey(this.props.apikey))
       .then(response => {
         if (response.status !== 200) {
@@ -45,7 +70,7 @@ class Getinfo extends React.Component {
           });
         }
       );
-  }
+  }}
 
   render() {
     if (this.state.requestFailed) return <p>Failed!</p>;
@@ -60,6 +85,7 @@ class Getinfo extends React.Component {
     return (
       <div>
         <h2>{this.state.stockData["Meta Data"]["2. Symbol"]}</h2>
+        <button onClick={this.getStocks}>Refresh stocks</button>
       </div>
     );
   }

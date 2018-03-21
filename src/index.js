@@ -43,7 +43,7 @@ export default class App3 extends React.Component {
         <Hello name="Test" />
       <h2>Start editing to see some magic happen {"\u2728"}</h2>
         <TodoList items={this.state.items} />
-        <Getinfo apikey="xxxx" stocks={this.state.items}/>
+        <Getinfo apikey="H92I9M22KMMAS3ZL" stocks={this.state.items}/>
         <Addstock2 />
       </div>
     );

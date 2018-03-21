@@ -34,30 +34,30 @@ this.state = {
 };
 
 this.handleKeyUp = this.handleKeyUp.bind(this);
-//this.onSubmit = this.onSubmit.bind(this);
+this.onSubmit = this.onSubmit.bind(this);
 this.updateValue = this.updateValue.bind(this);
   }
 
-/*
+
   onSubmit = e => {
     var ourArray = this.props.items;
     ourArray.push({
-      stockName: this.state.stockName.toString(),
-      numberOfStock: this.state.numberOfStock.toString(),
-      purchaseValue: this.state.purchaseValue.toString(),
-      purchaseDate: this.state.purchaseDate.toString()
+      stockName: this.state.stockName,
+      numberOfStock: this.state.numberOfStock,
+      purchaseValue: this.state.purchaseValue,
+      purchaseDate: this.state.purchaseDate
 
     });
 
     this.setState({
-      items: ourArray,
+      ourArray: ourArray,
       stockName: '',
       numberOfStock: '',
       purchaseValue: '',
       purchaseDate: ''
     });
     }
-*/
+
    
 
 
@@ -76,8 +76,7 @@ this.updateValue = this.updateValue.bind(this);
     const linked = this.linkAll();
 
   
-    linked.stockName
-   //   .check('isRequired');
+  //  linked.stockName.check('isRequired');
     //  .check(x => x.indexof(' ') < 0, "Stock name shouldn't contain spaces" );
     
   //  linked.numberOfStock;
@@ -103,7 +102,7 @@ this.updateValue = this.updateValue.bind(this);
        
         <label>
           Is active: <input type="checkbox"
-            checkedLink={Link.state(this, 'isActive')} />
+            checkedlink={Link.state(this, 'isActive')} />
         </label>
 
         <button disabled={linked.stockName.error } type="submit">Add Stock</button>
