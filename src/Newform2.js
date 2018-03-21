@@ -84,3 +84,4 @@ const FormInput({ label, ...props }) => (
 export default Addstock2;
 
 //https://github.com/Volicon/NestedLink/blob/master/example/src/asaf.jsx
+//https://medium.com/@gaperton/managing-state-and-forms-with-react-part-1-12eacb647112
