@@ -15,32 +15,6 @@ const styles = {
   textAlign: "center"
 };
 
-/*
-export default class App2 extends React.Component {
-    super(props);
-    this.disableButton = this.disableButton.bind(this);
-    this.enableButton = this.enableButton.bind(this);
-    this.state = { canSubmit: false };
-  }
-
-  disableButton() {
-    this.setState({ canSubmit: false });
-  }
-
-  enableButton() {
-    this.setState({ canSubmit: true });
-  }
-
-  submit(model) {
-    fetch('http://example.com/', {
-      method: 'post',
-      body: JSON.stringify(model)
-    });
-  }
-
-  }
-}
-*/
 
 export default class App3 extends React.Component {
   constructor(props) {
@@ -50,7 +24,8 @@ export default class App3 extends React.Component {
       stockName: "",
       numberOfStock: "",
       value: "",
-      date: ""
+      date: "",
+      name: ""
     };
   }
 
@@ -66,13 +41,14 @@ export default class App3 extends React.Component {
     return (
       <div style={styles} className="App3">
         <Hello name="Test" />
-        <h2>Start editing to see some magic happen {"\u2728"}</h2>
+      <h2>Start editing to see some magic happen {"\u2728"}</h2>
         <TodoList items={this.state.items} />
-        <Getinfo apikey="xxxx" stock={this.state.items}/>
+        <Getinfo apikey="xxxx" stocks={this.state.items}/>
         <Addstock2 />
       </div>
     );
     // <GetData username="xxxx"></GetData>
+//  <Hello name="Test" />
   }
 }
 /*

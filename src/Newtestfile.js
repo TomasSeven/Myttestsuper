@@ -11,13 +11,16 @@ class Getinfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      stocks: this.props.stocks,
       requestFailed: false
     };
   }
 
 
   componentDidMount() {
-    console.log(this.props.stock);
+    var info = this.props.stocks;
+   // console.log(this.props.stock);
+    console.log(this.props.info);
     fetch(urlForApikey(this.props.apikey))
       .then(response => {
         if (response.status !== 200) {

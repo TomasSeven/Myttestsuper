@@ -1,85 +1,121 @@
-import * as React from 'react';
+import React from 'react';
 import Link, { LinkedComponent } from 'valuelink';
-import { Input } from 'valuelink/tags.jsx'
+//import { Input } from 'valuelink/tags.jsx';
+import { Input, TextArea, Select, Radio, Checkbox } from 'valuelink/lib/tags';
+
+const FormInput = ({ label, ...props }) => (
+  <label> {label}
+    <Input {...props} />
+    <div className='error-placeholder'>
+      {props.valueLink.error || ''}
+    </div>
+  </label>
+);
+
+const ValidatedInput = (props) => (
+  <div>
+    <Input { ...props } />
+    <div className="validation-error">
+      {props.valueLink.error || ''}
+    </div>
+  </div>
+);
+
 
 class Addstock2 extends LinkedComponent {
   constructor(props) {
     super(props);
+this.state = { 
+  ourArray: [],
+  stockName: '',
+  numberOfStock: '',
+  purchaseValue: '',
+  purchaseDate: ''
+};
+
+this.handleKeyUp = this.handleKeyUp.bind(this);
+//this.onSubmit = this.onSubmit.bind(this);
+this.updateValue = this.updateValue.bind(this);
   }
 
+/*
   onSubmit = e => {
-    var itemArray = this.props.items;
-    itemArray.push({
-      stockName: this.state.stockName,
-      numberOfStock: this.state.numberOfStock,
-      value: this.state.value,
-      date: this.state.date,
+    var ourArray = this.props.items;
+    ourArray.push({
+      stockName: this.state.stockName.toString(),
+      numberOfStock: this.state.numberOfStock.toString(),
+      purchaseValue: this.state.purchaseValue.toString(),
+      purchaseDate: this.state.purchaseDate.toString()
 
     });
 
     this.setState({
-      items: itemArray,
-      stockName: "",
+      items: ourArray,
+      stockName: '',
       numberOfStock: '',
-      value: '',
-      date: ''
+      purchaseValue: '',
+      purchaseDate: ''
     });
+    }
+*/
+   
 
 
-
-
+  handleKeyUp = (event) => {
+    if (event.keyCode === 13)
+      return this.addItem();
   }
+  updateValue = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value.toString()
+    });
+  }
+  //  const stockNameLink = linked(this, 'Stock name')
 
   render() {
-    
+    const linked = this.linkAll();
 
-    const stockNameLink = Link.state(this, 'Stock name')
-      .check(x => x, 'Stock name is required')
-      .check(x => x.indexof(' ') < 0, "Stock name shouldn't contain spaces" )
-    const numberOfStockLink = Link.state(this, 'Number of stock')
-      .check(x => x, 'Number of stock is required')
-      .check(x => x.indexof(' ') < 0, "Number of stock shouldn't contain spaces")
+  
+    linked.stockName
+   //   .check('isRequired');
+    //  .check(x => x.indexof(' ') < 0, "Stock name shouldn't contain spaces" );
+    
+  //  linked.numberOfStock;
+    //  .check('isRequired')
+    //  .check(x => x.indexof(' ') < 0, "Number of stock shouldn't contain spaces");
+    
+  //  linked.purchaseValue
+  //    .check('isRequired');
+    
+  //  linked.purchaseDate
+  //    .check(x => x, 'Date of purchase is required');
+ 
 
     return (
-      <form onSubmit={this.onSubmit}>
-          <FormInput label="Stock name" valueLink={ stockNameLink } type="text"/>
+      <form onSubmit={this.onSubmit} onChange={this.updateValue} onKeyUp={this.handleKeyUp}>
+        <FormInput label="Stock name" valueLink={linked.stockName} type="text"/>
         
-
-        <label>
-          <input placeholder="Number of stock" valueLink={ numberOfStockLink } />
-        </label>
-
-        <label>
-          <input placeholder="Stock price at purchase" valueLink={linked.stockPrice} />
-        </label>
-
-        <label>
-          <input placeholder="Date of purchase" valueLink={linked.dateOfPurchase} />
-        </label>
-
+        <FormInput label="Number of stock" valueLink={linked.numberOfStock} type="text"/>
+      
+          <FormInput label="Stock price at purchase" valueLink={linked.purchaseValue} type="text"/>
+    
+          <FormInput label="Date of purchase" valueLink={linked.purchaseDate} type="text" />
+       
         <label>
           Is active: <input type="checkbox"
-            checkedLinked={linked.isActive} />
+            checkedLink={Link.state(this, 'isActive')} />
         </label>
 
-        <button type="submit">Add Stock</button>
+        <button disabled={linked.stockName.error } type="submit">Add Stock</button>
       </form>
     );
-
-
+  }
   }
 
  
-}
 
-const FormInput({ label, ...props }) => (
-  <label> {label}
-    <Input {...props} />
-    <div className='error-placeholder'>
-      {props.valueLink || ''}
-    </div>
-  </label>
-);
+
+
 
 export default Addstock2;
 
