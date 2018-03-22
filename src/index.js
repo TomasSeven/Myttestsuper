@@ -6,6 +6,7 @@ import Enterstock from "./Button";
 import TodoList from "./TodoList";
 import Getinfo from "./Newtestfile";
 import Addstock2 from "./Newform2";
+import TodoItems from './TodoItems'
 import "./StockList.css";
 //import ShowData from './ShowData';
 //import Api from './ShowData';
@@ -20,35 +21,68 @@ export default class App3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      stocks: [],
       items: [],
+      stockData: [],
       stockName: "",
       numberOfStock: "",
       value: "",
       date: "",
-      name: ""
+      name: "",
+      status: "",
+      requestFailed: false
     };
   }
 
-  disableButton() {
-    this.setState({ canSubmit: false });
+  updateValue = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value.toUpperCase()
+    });
+  }
+ 
+  addItem = (e) => {
+    var itemArray = this.state.items;
+    itemArray.push({
+      stockName: this.state.stockName,
+      numberOfStock: this.state.numberOfStock,
+      value: this.state.value,
+      date: this.state.date,
+
+    });
+
+    this.setState({
+      items: itemArray,
+      stockName: "",
+      numberOfStock: '',
+      value: '',
+      date: ''
+    });
   }
 
-  enableButton() {
-    this.setState({ canSubmit: true });
+
+  handleKeyUp = (event) => {
+    if (event.keyCode === 13)
+      return this.addItem();
   }
- // console.log(this.state.items);
+
+
+ 
   render() {
     return (
       <div style={styles} className="App3">
-        <Hello name="Test" />
-      <h2>Start editing to see some magic happen {"\u2728"}</h2>
-        <TodoList items={this.state.items} />
-        <Getinfo apikey="H92I9M22KMMAS3ZL" stocks={this.state.items}/>
-        <Addstock2 />
+        <h1>Testsite </h1>
+        <h2>Blah blah </h2>
+        <TodoList items={this.state.stocks} stockName={this.state.stockName} numberOfStock={this.state.numberOfStock} value={this.state.value} date={this.state.date} onChange={this.updateValue} onClick={this.addItem} handleKeyUp={this.handleKeyUp}/>
+        <TodoItems entries={this.state.items} />   
+        <Getinfo apikey="xxx" stocks={this.state.items}/>
+        <button onClick={this.getStocks}>Refresh stocks</button>
+       
       </div>
     );
     // <GetData username="xxxx"></GetData>
 //  <Hello name="Test" />
+
+// <Addstock2 />
   }
 }
 /*

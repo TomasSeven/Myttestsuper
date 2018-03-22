@@ -6,7 +6,7 @@ const urlForApikey = apikey =>
   `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=${apikey}`;
 //xxx
 
-const stockar = stocks => this.state.stocks;
+
 
 
 
@@ -15,11 +15,10 @@ class Getinfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stocks: [],
       requestFailed: false,
      info:[]
     };
-    this.getStocks = this.getStocks.bind(this);
+  
   }
 
  // getStocks = e => {};
@@ -34,17 +33,8 @@ class Getinfo extends React.Component {
   }
 */
 
- // componentDidMount() {
-  getStocks = event => { 
-    console.log(event);
-    if (event === 13)
+  componentDidMount() {
 
-  {
-    console.log("Testing2");
-    var info = this.props.stocks;
-   // console.log(this.props.stock);
-    console.log(this.props.info);
-  //  console.log(stockar(this.props.stocks));
     console.log(urlForApikey(this.props.apikey));
     fetch(urlForApikey(this.props.apikey))
       .then(response => {
@@ -55,6 +45,8 @@ class Getinfo extends React.Component {
           throw Error("Network request failed");
         }
 
+// handle this        
+//Error Message: "Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_INTRADAY."
         return response;
       })
       .then(d => d.json())
@@ -70,14 +62,14 @@ class Getinfo extends React.Component {
           });
         }
       );
-  }}
+  }
 
   render() {
     if (this.state.requestFailed) return <p>Failed!</p>;
     if (!this.state.stockData) return <p>Loading...</p>;
-    console.log("Stockdata");
-    console.log(this.state.stockData);
-    console.log(this.props.stocks);
+    console.log("Stockdata", this.state.stockData);
+
+    console.log("Stocks names", this.props.stocks);
 //    alert(this.state.stockData["Meta Data"]["2. Symbol"]);
   //.["2. Symbol"]
     //console.log(this.state.stockData.map((["2. Symbol"]) => {return (["2. Symbol")]}));
@@ -85,7 +77,7 @@ class Getinfo extends React.Component {
     return (
       <div>
         <h2>{this.state.stockData["Meta Data"]["2. Symbol"]}</h2>
-        <button onClick={this.getStocks}>Refresh stocks</button>
+        
       </div>
     );
   }

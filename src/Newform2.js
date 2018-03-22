@@ -23,20 +23,20 @@ const ValidatedInput = (props) => (
 
 
 class Addstock2 extends LinkedComponent {
-  constructor(props) {
+ constructor(props) {
     super(props);
 this.state = { 
   ourArray: [],
-  stockName: '',
+ stockName: '',
   numberOfStock: '',
   purchaseValue: '',
-  purchaseDate: ''
-};
+ purchaseDate: ''
+ };
 
-this.handleKeyUp = this.handleKeyUp.bind(this);
+//this.handleKeyUp = this.handleKeyUp.bind(this);
 this.onSubmit = this.onSubmit.bind(this);
 this.updateValue = this.updateValue.bind(this);
-  }
+ }
 
 
   onSubmit = e => {
@@ -76,7 +76,7 @@ this.updateValue = this.updateValue.bind(this);
     const linked = this.linkAll();
 
   
-  //  linked.stockName.check('isRequired');
+   // linked.stockName.check('isRequired');
     //  .check(x => x.indexof(' ') < 0, "Stock name shouldn't contain spaces" );
     
   //  linked.numberOfStock;
