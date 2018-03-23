@@ -36,6 +36,8 @@ class Getinfo extends React.Component {
   componentDidMount() {
 
     console.log(urlForApikey(this.props.apikey));
+
+    
     fetch(urlForApikey(this.props.apikey))
       .then(response => {
         if (response.status !== 200) {

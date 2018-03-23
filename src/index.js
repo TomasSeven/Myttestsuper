@@ -6,7 +6,7 @@ import Enterstock from "./Button";
 import TodoList from "./TodoList";
 import Getinfo from "./Newtestfile";
 import Addstock2 from "./Newform2";
-import TodoItems from './TodoItems'
+import TodoItems from "./TodoItems";
 import "./StockList.css";
 //import ShowData from './ShowData';
 //import Api from './ShowData';
@@ -16,14 +16,21 @@ const styles = {
   textAlign: "center"
 };
 
-
 export default class App3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       stocks: [],
-      items: [],
+      items: [
+        {
+          stockName: "AAPL",
+          numberOfStock: "122",
+          value: "120000",
+          date: "2018-12-31"
+        }
+      ],
       stockData: [],
+      listItems: [],
       stockName: "",
       numberOfStock: "",
       value: "",
@@ -34,55 +41,58 @@ export default class App3 extends React.Component {
     };
   }
 
-  updateValue = (e) => {
+  updateValue = e => {
     this.setState({
       [e.target.id]: e.target.value.toUpperCase()
     });
-  }
- 
-  addItem = (e) => {
-    var itemArray = this.state.items;
+  };
+
+  addItem = e => {
+    var itemArray = [...this.state.items];
     itemArray.push({
       stockName: this.state.stockName,
       numberOfStock: this.state.numberOfStock,
       value: this.state.value,
-      date: this.state.date,
-
+      date: this.state.date
     });
+ 
 
     this.setState({
       items: itemArray,
       stockName: "",
-      numberOfStock: '',
-      value: '',
-      date: ''
+      numberOfStock: "",
+      value: "",
+      date: ""
     });
-  }
+  };
 
+  handleKeyUp = event => {
+    if (event.keyCode === 13) return this.addItem();
+  };
 
-  handleKeyUp = (event) => {
-    if (event.keyCode === 13)
-      return this.addItem();
-  }
-
-
- 
   render() {
     return (
       <div style={styles} className="App3">
         <h1>Testsite </h1>
         <h2>Blah blah </h2>
-        <TodoList items={this.state.stocks} stockName={this.state.stockName} numberOfStock={this.state.numberOfStock} value={this.state.value} date={this.state.date} onChange={this.updateValue} onClick={this.addItem} handleKeyUp={this.handleKeyUp}/>
-        <TodoItems entries={this.state.items} />   
-        <Getinfo apikey="xxx" stocks={this.state.items}/>
+        <TodoList
+          {...this.state}
+          onChange={this.updateValue}
+          onClick={this.addItem}
+          handleKeyUp={this.handleKeyUp}
+        />
+        <TodoItems entries={this.state.items} />
+
+        <Getinfo apikey="xxx" stocks={this.state.items} />
         <button onClick={this.getStocks}>Refresh stocks</button>
-       
       </div>
     );
+    //<TodoItems entries={this.state.items}/>
+    //<TodoList items={this.state.stocks} stockName={this.state.stockName} numberOfStock={this.state.numberOfStock} value={this.state.value} date={this.state.date} onChange={this.updateValue} onClick={this.addItem} handleKeyUp={this.handleKeyUp}/>
     // <GetData username="xxxx"></GetData>
-//  <Hello name="Test" />
+    //  <Hello name="Test" />
 
-// <Addstock2 />
+    // <Addstock2 />
   }
 }
 /*
