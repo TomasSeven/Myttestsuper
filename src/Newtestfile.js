@@ -7,7 +7,33 @@ const urlForApikey = apikey =>
 //xxx
 
 
+const createUrl = (e,stock) =>{
+ // console.log("stockar", stock)
+ // console.log("Build url", e.baseurl, e.functione, e.symbole, e.interval, e.apikey)
+  return e.baseurl + "function=" + e.functione + "&symbol=" + stock + "&interval=" + e.interval + "&apikey=" + e.apikey;
+ // `${e.baseurl}function=${e.functione}&symbol=${stock}&interval=${e.interval}&apikey=${e.apikey}`;
 
+//c;
+
+  };
+/*
+const TesturlFor = (...props) => (
+
+  let urlVars = {
+    url: "",
+    baseurl: "https://www.alphavantage.co/query?",
+    functione: "TIME_SERIES_INTRADAY",
+    symbole: this.props.findstock,
+    interval: "1min",
+    Apikey: this.props.apikey
+  };
+ let url = {urlVars.baseurl} + "function=$" + {urlVars.functione};
+ 
+ //&symbol=${urlVars.symbole}&interval=${urlVars.interval}&apikey=${urlVars.Apikey}";
+//console.log(this.state.urlVars)
+//return this.state.urlVars.url;
+);
+*/
 
 
 
@@ -16,7 +42,13 @@ class Getinfo extends React.Component {
     super(props);
     this.state = {
       requestFailed: false,
-     info:[]
+      findstock: "",
+     info:[],
+     baseurl: "https://www.alphavantage.co/query?",
+     functione: "TIME_SERIES_INTRADAY",
+     symbole: "",
+     interval: "1min",
+apikey: this.props.apikey
     };
   
   }
@@ -27,16 +59,36 @@ class Getinfo extends React.Component {
   componentWillReceiveProps(nextProps){
     console.log("Testing1");
     var info = this.nextProps.stocks;
-    // console.log(this.props.stock);
+  console.log(this.props.stock);
     console.log(this.nextProps.info);
 
   }
 */
-
+ 
   componentDidMount() {
+    console.log("Start fetchfile")
+console.log("baseurl:", this.state.baseurl, this.state.key);
+var stockList = this.props.stocks
+var fetchList = [];
+for (var i = 0; i < stockList.length; i++) {
+  var myStock = stockList[i].stockName;
 
-    console.log(urlForApikey(this.props.apikey));
+  console.log("mystock",myStock);
+  console.log("symbole", this.state.symbole);
+// var myUrl = "url";
+  var myUrl = createUrl(this.state, myStock) ;
+  console.log("Klar url",myUrl);
+  fetchList.push({
+    stockName: myStock,
+    url: myUrl
+});
 
+};
+    console.log("Fetchlist", fetchList);
+
+  //  console.log("1", TesturlFor(this.props));
+ //   console.log(urlForApikey(this.props.apikey));
+ //   console.log(urlForApikey(this.props.apikey));
     
     fetch(urlForApikey(this.props.apikey))
       .then(response => {
@@ -79,7 +131,7 @@ class Getinfo extends React.Component {
     return (
       <div>
         <h2>{this.state.stockData["Meta Data"]["2. Symbol"]}</h2>
-        
+        <button onClick={this.getStocks}>Refresh stocks</button>
       </div>
     );
   }

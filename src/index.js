@@ -27,6 +27,12 @@ export default class App3 extends React.Component {
           numberOfStock: "122",
           value: "120000",
           date: "2018-12-31"
+        },
+        {
+          stockName: "MSFT",
+          numberOfStock: "22",
+          value: "12000",
+          date: "2018-11-31"
         }
       ],
       stockData: [],
@@ -84,7 +90,6 @@ export default class App3 extends React.Component {
         <TodoItems entries={this.state.items} />
 
         <Getinfo apikey="xxx" stocks={this.state.items} />
-        <button onClick={this.getStocks}>Refresh stocks</button>
       </div>
     );
     //<TodoItems entries={this.state.items}/>
