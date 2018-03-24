@@ -57,7 +57,7 @@ addItem = (e) => {
     return (
       <div className="todoListMain">
         <div className="header"
-          onChange={(e) => this.props.onChange(e)} onKeyUp={this.props.handleKeyUp} >
+          onChange={this.props.onChange} onKeyUp={this.props.handleKeyUp} >
           <input id="stockName" placeholder="Stock name" value={this.props.stockName}  />
           <input id="numberOfStock" placeholder="Number of stock" value={this.props.numberOfStock}  />
           <input id="value" placeholder="Stock price at purchase" value={this.props.value} />
@@ -68,9 +68,12 @@ addItem = (e) => {
       </div>
     );
   }
+  
  // <ShowData stockList={this.state.items} />
 };
 /*
+
+
 <TodoItems entries={this.state.items} />
   <ShowData entries={this.state.items} />*/
 export default TodoList;

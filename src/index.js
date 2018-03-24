@@ -32,7 +32,7 @@ export default class App3 extends React.Component {
           stockName: "MSFT",
           numberOfStock: "22",
           value: "12000",
-          date: "2018-11-31"
+          date: "2018-12-31"
         }
       ],
       stockData: [],

@@ -1,5 +1,6 @@
 import React from "react";
 import TodoList from "./TodoList";
+import Loading from 'react-loading-spinkit';
 
 
 const urlForApikey = apikey =>
@@ -44,6 +45,7 @@ class Getinfo extends React.Component {
       requestFailed: false,
       findstock: "",
      info:[],
+     stockData:[],
      baseurl: "https://www.alphavantage.co/query?",
      functione: "TIME_SERIES_INTRADAY",
      symbole: "",
@@ -89,7 +91,51 @@ for (var i = 0; i < stockList.length; i++) {
   //  console.log("1", TesturlFor(this.props));
  //   console.log(urlForApikey(this.props.apikey));
  //   console.log(urlForApikey(this.props.apikey));
+    for (var i = 0; i < fetchList.length; i++) {  
+      console.log("getstock",fetchList[i].url);
+
+
+      fetch(fetchList[i].url).then(
+        response => {
+        if (response.status !== 200) {
+          console.log(
+            "Looks like there was a problem. Status Code: " + response.status
+          );
+          throw Error("Network request failed");
+        }
+        if (response === "Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_INTRADAY." )
+        // handle this        
+        //Error Message: "Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_INTRADAY."
+        {
+          console.log("Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_INTRADAY.");
+
+          throw Error("Error");
+        }
+        
+        return response;
+      })
+        .then(d => d.json())
+        .then(
+     
+        d => {
+          this.setState(prevState => ({
+            stockData: [...prevState.stockData, d]
+          }))
+
+        ,() => {
+          this.setState({
+            requestFailed: true
+          });
+        }
+        }
+        );
+
+    }
+  };
     
+  
+
+    /*
     fetch(urlForApikey(this.props.apikey))
       .then(response => {
         if (response.status !== 200) {
@@ -117,6 +163,7 @@ for (var i = 0; i < stockList.length; i++) {
         }
       );
   }
+*/
 
   render() {
     if (this.state.requestFailed) return <p>Failed!</p>;
@@ -129,8 +176,9 @@ for (var i = 0; i < stockList.length; i++) {
     //console.log(this.state.stockData.map((["2. Symbol"]) => {return (["2. Symbol")]}));
   //  console.log(this.state.stockData.map((["Meta Data"]) => {return (["Meta Data")]}));
     return (
-      <div>
-        <h2>{this.state.stockData["Meta Data"]["2. Symbol"]}</h2>
+     
+      <div style={{ height: '10vh', width: '100vw' }}>
+        <Loading show={true} />
         <button onClick={this.getStocks}>Refresh stocks</button>
       </div>
     );
@@ -138,6 +186,12 @@ for (var i = 0; i < stockList.length; i++) {
 }
 
 export default Getinfo;
+
+
+
+
+//<h2>{this.state.stockData[0]["Meta Data"]["2. Symbol"]}</h2>
+//  <h2>{this.state.stockData[1]["Meta Data"]["2. Symbol"]}</h2>
 
 
 //data.results.map((planet) => {
