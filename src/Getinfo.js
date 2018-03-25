@@ -193,7 +193,7 @@ const hej = [j];
     if (this.state.requestFailed) return <p>Failed!</p>;
     if (!this.state.stockData) return <p>Loading...</p>;
    // console.log("Stockdata", this.state.stockData);
-
+//
    // console.log("Stocks names", this.props.stocks);
    // console.log("Fetchar", this.state.fetchList);
 //    alert(this.state.stockData["Meta Data"]["2. Symbol"]);
