@@ -1,6 +1,7 @@
 import React from "react";
 import TodoList from "./TodoList";
 import Loading from 'react-loading-spinkit';
+import Stockstatus from './Stockstatus'
 
 
 const urlForApikey = apikey =>
@@ -51,7 +52,7 @@ class Getinfo extends React.Component {
     this.state = {
       requestFailed: false,
       findstock: "",
-      stocklist: this.props.stocks,
+      stockList: this.props.stocks,
      info:[],
      stockData:[],
      baseurl: "https://www.alphavantage.co/query?",
@@ -78,10 +79,10 @@ apikey: this.props.apikey
   componentDidMount() {
     console.log("Start fetchfile")
 console.log("baseurl:", this.state.baseurl, this.state.key);
-var myStockList = this.state.stocklist;
-var fetchList = [];
+var myStockList = this.state.stockList;
+    var fetchList = [];
 for (var i = 0; i < myStockList.length; i++) {
-
+  
   if (myStockList[i].status === "need_update"){
 
   var myStock = myStockList[i].stockName;
@@ -108,22 +109,51 @@ for (var i = 0; i < myStockList.length; i++) {
    value: myStockList[i].value,
    date: myStockList[i].date,
    url: myUrl,
-   status: myStockList[i].status,
+   status: "Will_update",
     
 });
- this.setState({
-
-
- });
-  }
+ this.setState(prevState => ({
+   fetchList: [...prevState.stockList, fetchList]
+ }));
+// });
+//  }
 };
+}
+//const arr1 = ['a', 'b', 'c', 'd', 'e']
+//const arr2 = arr1.map(item => {
+//  if (item === 'c') {
+//    item = 'CAT';
+//  }
+//  return item;
+// }); // ['a', 'b', 'CAT', 'd', 'e']
+
+
+
     console.log("Fetchlist", fetchList);
 
   //  console.log("1", TesturlFor(this.props));
  //   console.log(urlForApikey(this.props.apikey));
  //   console.log(urlForApikey(this.props.apikey));
+
+ 
+
     for (var j = 0; j < fetchList.length; j++) {  
       console.log("getstock",fetchList[j].url);
+
+      var updateArray = [...fetchList];
+
+      updateArray.push({
+        stockName: fetchList[j].stockName,
+        numberOfStock: fetchList[j].numberOfStock,
+        value: fetchList[j].value,
+        date: fetchList[j].date,
+        url: fetchList[j].url,
+        status: "Updating"
+      });
+
+      this.setState(prevState => ({
+        fetchList: [...prevState.fetchList, updateArray]
+     }));
 
 //       let update = this.state.stocklist => ({});
 //      this.setState(prevState => ({
@@ -134,6 +164,9 @@ for (var i = 0; i < myStockList.length; i++) {
     //  const arr2 = arr1.map(item => {
     //    if (item === 'c') {
     //      item = 'CAT';
+
+      
+
 
 
       fetch(fetchList[j].url).then(
@@ -173,6 +206,12 @@ for (var i = 0; i < myStockList.length; i++) {
         );
 
     }
+
+
+
+
+
+
   };
     
   
@@ -215,14 +254,16 @@ for (var i = 0; i < myStockList.length; i++) {
     console.log("Stockdata", this.state.stockData);
 
     console.log("Stocks names", this.props.stocks);
+    console.log("Fetchar", this.state.fetchList);
 //    alert(this.state.stockData["Meta Data"]["2. Symbol"]);
   //.["2. Symbol"]
     //console.log(this.state.stockData.map((["2. Symbol"]) => {return (["2. Symbol")]}));
   //  console.log(this.state.stockData.map((["Meta Data"]) => {return (["Meta Data")]}));
     return (
      
-      <div style={{ height: '5vh', width: '10ovw' }}>
-        <Loading show={true} />
+      <div>
+       <Stockstatus items={this.state.fetchList}/>
+        
         <button onClick={this.getStocks}>Refresh stocks</button>
       </div>
     );
