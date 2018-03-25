@@ -7,13 +7,13 @@ class Stockstatus extends React.Component {
     super(props);
   }
 
-
+//
 
 render (){
 
 
   console.log("meeep", this.props.list);
-  
+
   var todoEntries = this.props.list;
   var listItems = [];
   // console.log(this.props.entries); 
