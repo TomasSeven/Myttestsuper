@@ -6,7 +6,14 @@ import Loading from 'react-loading-spinkit';
 const urlForApikey = apikey =>
   `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=1min&apikey=${apikey}`;
 //xxx
-
+var arr1 = [];
+const updateArrayonName = arr1.map((item ,status, newsstatus )=> {
+  if (item === status) {
+    item = newsstatus;
+  }
+  return item;
+});
+  
 
 const createUrl = (e,stock) =>{
  // console.log("stockar", stock)
@@ -44,6 +51,7 @@ class Getinfo extends React.Component {
     this.state = {
       requestFailed: false,
       findstock: "",
+      stocklist: this.props.stocks,
      info:[],
      stockData:[],
      baseurl: "https://www.alphavantage.co/query?",
@@ -70,32 +78,65 @@ apikey: this.props.apikey
   componentDidMount() {
     console.log("Start fetchfile")
 console.log("baseurl:", this.state.baseurl, this.state.key);
-var stockList = this.props.stocks
+var myStockList = this.state.stocklist;
 var fetchList = [];
-for (var i = 0; i < stockList.length; i++) {
-  var myStock = stockList[i].stockName;
+for (var i = 0; i < myStockList.length; i++) {
 
-  console.log("mystock",myStock);
-  console.log("symbole", this.state.symbole);
+  if (myStockList[i].status === "need_update"){
+
+  var myStock = myStockList[i].stockName;
+    console.log("stockname:", myStock, "Status:", myStockList[i].status);
+ // console.log("mystock",myStock);
+//  console.log("symbole", this.state.symbole);
 // var myUrl = "url";
   var myUrl = createUrl(this.state, myStock) ;
   console.log("Klar url",myUrl);
-  fetchList.push({
-    stockName: myStock,
-    url: myUrl
-});
 
+ /* 
+  .then(
+    d => {
+      this.setState(prevState => ({
+        stocklist: [...prevState.stockData, d]
+      }))}
+      );
+*/
+ // console.log("Funkar det ?", this.state.stocklist);
+
+ fetchList.push({
+   stockName: myStockList[i].stockName,
+   numberOfStock: myStockList[i].numberOfStock,
+   value: myStockList[i].value,
+   date: myStockList[i].date,
+   url: myUrl,
+   status: myStockList[i].status,
+    
+});
+ this.setState({
+
+
+ });
+  }
 };
     console.log("Fetchlist", fetchList);
 
   //  console.log("1", TesturlFor(this.props));
  //   console.log(urlForApikey(this.props.apikey));
  //   console.log(urlForApikey(this.props.apikey));
-    for (var i = 0; i < fetchList.length; i++) {  
-      console.log("getstock",fetchList[i].url);
+    for (var j = 0; j < fetchList.length; j++) {  
+      console.log("getstock",fetchList[j].url);
+
+//       let update = this.state.stocklist => ({});
+//      this.setState(prevState => ({
+//        stocklist: [...prevState ]
+
+//}))
+
+    //  const arr2 = arr1.map(item => {
+    //    if (item === 'c') {
+    //      item = 'CAT';
 
 
-      fetch(fetchList[i].url).then(
+      fetch(fetchList[j].url).then(
         response => {
         if (response.status !== 200) {
           console.log(
@@ -121,6 +162,7 @@ for (var i = 0; i < stockList.length; i++) {
           this.setState(prevState => ({
             stockData: [...prevState.stockData, d]
           }))
+
 
         ,() => {
           this.setState({
@@ -166,6 +208,8 @@ for (var i = 0; i < stockList.length; i++) {
 */
 
   render() {
+
+
     if (this.state.requestFailed) return <p>Failed!</p>;
     if (!this.state.stockData) return <p>Loading...</p>;
     console.log("Stockdata", this.state.stockData);
@@ -177,7 +221,7 @@ for (var i = 0; i < stockList.length; i++) {
   //  console.log(this.state.stockData.map((["Meta Data"]) => {return (["Meta Data")]}));
     return (
      
-      <div style={{ height: '10vh', width: '100vw' }}>
+      <div style={{ height: '5vh', width: '10ovw' }}>
         <Loading show={true} />
         <button onClick={this.getStocks}>Refresh stocks</button>
       </div>
