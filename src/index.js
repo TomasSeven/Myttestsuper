@@ -4,7 +4,7 @@ import { render } from "react-dom";
 import Hello from "./Hello";
 import Enterstock from "./Button";
 import TodoList from "./TodoList";
-import Getinfo from "./Newtestfile";
+import Getinfo from "./Getinfo";
 import Addstock2 from "./Newform2";
 import TodoItems from "./TodoItems";
 import "./StockList.css";
