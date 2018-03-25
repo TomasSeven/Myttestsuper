@@ -26,13 +26,17 @@ export default class App3 extends React.Component {
           stockName: "AAPL",
           numberOfStock: "122",
           value: "120000",
-          date: "2018-12-31"
+          date: "2018-12-31",
+          url: "",
+          status: "need_update"
         },
         {
           stockName: "MSFT",
           numberOfStock: "22",
           value: "12000",
-          date: "2018-12-31"
+          date: "2018-12-31",
+          url: "",
+          status: "need_update"
         }
       ],
       stockData: [],
@@ -59,7 +63,9 @@ export default class App3 extends React.Component {
       stockName: this.state.stockName,
       numberOfStock: this.state.numberOfStock,
       value: this.state.value,
-      date: this.state.date
+      date: this.state.date,
+      url: "",
+      status: "need_update"
     });
  
 
@@ -68,7 +74,9 @@ export default class App3 extends React.Component {
       stockName: "",
       numberOfStock: "",
       value: "",
-      date: ""
+      date: "",
+      url: "",
+      status: ""
     });
   };
 
