@@ -1,5 +1,6 @@
 import React from "react";
 import Loading from 'react-loading-spinkit';
+import Ramda from "ramda";
 
 
 class Stockstatus extends React.Component {
@@ -12,24 +13,31 @@ class Stockstatus extends React.Component {
 render (){
 
 
-  console.log("meeep", this.props.list);
+//  console.log("meeep", this.props.list);
 
   var todoEntries = this.props.list;
+ // console.log(Ramda.isEmpty(todoEntries));
+  var hello = this.props.list;
+ // console.log(Ramda.isEmpty(hello), Ramda.isNil(hello), hello);
+
   var listItems = [];
   // console.log(this.props.entries); 
+  if (!Ramda.isNil(todoEntries)){
 
   for (var i = 0; i < todoEntries.length; i++) {
+ //   console.log("todo", todoEntries[i]);
     var entry = todoEntries[i];
+ //   console.log("entry",entry);
     listItems.push(<li key={"stockName" + i}>
       
-      <div style={{ height: '5vh', width: '10ovw' }}>
-        <a>{entry.stockName}</a>
-        <Loading show={true} />
+      <div style={{ height: '10vh', width: '10ovw' }}>
+        <a>{entry[i].stockName} <Loading show={true} />
+        </a>
         </div>
     </li>);
 
   }
-
+  }
 
 
 

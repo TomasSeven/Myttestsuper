@@ -8,6 +8,7 @@
   "dependencies": {
     "create-react-class": "15.6.3",
     "formsy-react": "1.1.4",
+    "ramda": "0.25.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-loading-spinkit": "0.1.8",

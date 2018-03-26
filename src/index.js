@@ -7,6 +7,7 @@ import TodoList from "./TodoList";
 import Getinfo from "./Getinfo";
 import Addstock2 from "./Newform2";
 import TodoItems from "./TodoItems";
+import SuperInfo from "./LetsTryAgain";
 import "./StockList.css";
 //import ShowData from './ShowData';
 //import Api from './ShowData';
@@ -28,7 +29,8 @@ export default class App3 extends React.Component {
           value: "120000",
           date: "2018-12-31",
           url: "",
-          status: "need_update"
+          status: "need_update",
+          stockdata: []
         },
         {
           stockName: "MSFT",
@@ -36,7 +38,8 @@ export default class App3 extends React.Component {
           value: "12000",
           date: "2018-12-31",
           url: "",
-          status: "need_update"
+          status: "need_update",
+          stockdata: []
         }
       ],
       stockData: [],
@@ -65,7 +68,8 @@ export default class App3 extends React.Component {
       value: this.state.value,
       date: this.state.date,
       url: "",
-      status: "need_update"
+      status: "need_update",
+      stockdata:[]
     });
  
 
@@ -76,7 +80,8 @@ export default class App3 extends React.Component {
       value: "",
       date: "",
       url: "",
-      status: ""
+      status: "",
+      stockdata: []
     });
   };
 
@@ -96,10 +101,12 @@ export default class App3 extends React.Component {
           handleKeyUp={this.handleKeyUp}
         />
         <TodoItems entries={this.state.items} />
-
-        <Getinfo apikey="xxx" stocks={this.state.items} />
+        <SuperInfo apikey="xxx" stocks={this.state.items}/>
+       
       </div>
     );
+
+    // <Getinfo apikey="xxx" stocks={this.state.items} />
     //<TodoItems entries={this.state.items}/>
     //<TodoList items={this.state.stocks} stockName={this.state.stockName} numberOfStock={this.state.numberOfStock} value={this.state.value} date={this.state.date} onChange={this.updateValue} onClick={this.addItem} handleKeyUp={this.handleKeyUp}/>
     // <GetData username="xxxx"></GetData>

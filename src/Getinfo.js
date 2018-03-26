@@ -78,7 +78,7 @@ apikey: this.props.apikey
 */
  
   componentDidMount() {
-    console.log("Start fetchfile")
+ //   console.log("Start fetchfile")
 //console.log("baseurl:", this.state.baseurl, this.state.key);
 var myStockList = this.state.stockList;
     var fetchList = [];
@@ -124,7 +124,7 @@ const hej = [j];
       this.setState(prevState => ({
         fetchList: [updateArray2]
      }));
-      console.log("Uppdaterad fetchlist", fetchList);
+    //  console.log("Uppdaterad fetchlist", fetchList);
 
 
 
@@ -145,17 +145,17 @@ const hej = [j];
 
           throw Error("Error");
         }
-        const updateArray1 = [...fetchList];
-        const updateArray4 = updateArray.map(item => {
+        const updateArray1 = fetchList;
+        const updateArray4 = updateArray1.map(item => {
           if (item.stockName === fetchList[hej].stockName) {
 
             item.status = 'Updated';
           }
           return item;
         });
-        this.setState(prevState => ({
-          fetchList: [updateArray4]
-        }));
+        this.setState({
+          fetchList: this.state.updateArray4,
+        });
 
 
         return response;
@@ -188,7 +188,7 @@ const hej = [j];
     
   
   render() {
-    console.log(this.state.fetchList);
+  //  console.log("fetchalist", this.state.fetchList);
 
     if (this.state.requestFailed) return <p>Failed!</p>;
     if (!this.state.stockData) return <p>Loading...</p>;
