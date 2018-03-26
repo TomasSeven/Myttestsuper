@@ -23,7 +23,7 @@ export default class App3 extends React.Component {
     this.state = {
       stocks: [],
       items: [
-        {
+        { id: 1,
           stockName: "AAPL",
           numberOfStock: "122",
           value: "120000",
@@ -32,7 +32,7 @@ export default class App3 extends React.Component {
           status: "need_update",
           stockdata: []
         },
-        {
+        { id: 2,
           stockName: "MSFT",
           numberOfStock: "22",
           value: "12000",

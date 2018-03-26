@@ -64,23 +64,39 @@ testsr
 return (
 <div>
 {
-      this.props.stocks.map((x, i) =>
-      <div>
-      {
-            (typeof (x.stock) == 'object')?
-            <div>
-            {
-              
-            }
-            </div>
-      }
-</div>
+      [...this.props.stocks].map((x) =>
+        <div>
+        {"name: " + x.stockName}
+        </div>
+        )
+    
 }
 </div>
 
-);
-
-  };
-};
+)
+}
+}
 
 export default SuperInfo;
+
+
+/*
+[...this.props.stocks].map((x) =>
+  <div>
+    {
+      (typeof (x.stock) === 'object') ?
+        <div>
+          {
+            x.stock.map((y) =>
+              <div>
+                {"nane" + y.stockName}
+              </div>
+            )
+          }
+        </div>
+        :
+        "sdf"
+    }
+  </div>
+)
+*/
