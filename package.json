@@ -8,11 +8,15 @@
   "dependencies": {
     "create-react-class": "15.6.3",
     "formsy-react": "1.1.4",
+    "lodash": "latest",
     "ramda": "0.25.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "react-loading-spinkit": "0.1.8",
+    "react-icons": "2.2.7",
+    "react-native-web": "0.5.3",
     "react-scripts": "1.1.0",
+    "react-spinkit": "latest",
+    "spin.js": "3.1.0",
     "valuelink": "1.5.4"
   },
   "devDependencies": {},

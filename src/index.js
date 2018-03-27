@@ -29,8 +29,9 @@ export default class App3 extends React.Component {
           value: "120000",
           date: "2018-12-31",
           url: "",
+          loading: false,
           status: "need_update",
-          stockdata: []
+          stockdata: [{asd: "asd"}]
         },
         { id: 2,
           stockName: "MSFT",
@@ -38,6 +39,8 @@ export default class App3 extends React.Component {
           value: "12000",
           date: "2018-12-31",
           url: "",
+          loading: true,
+          error: false,
           status: "need_update",
           stockdata: []
         }
@@ -48,7 +51,9 @@ export default class App3 extends React.Component {
       numberOfStock: "",
       value: "",
       date: "",
-      name: "",
+      url: "",
+      loading: false,
+      error: false,
       status: "",
       requestFailed: false
     };

@@ -1,5 +1,5 @@
 import React from "react";
-import Loading from 'react-loading-spinkit';
+//import Loading from 'react-loading-spinkit';
 import Ramda from "ramda";
 
 
@@ -31,7 +31,7 @@ render (){
     listItems.push(<li key={"stockName" + i}>
       
       <div style={{ height: '10vh', width: '10ovw' }}>
-        <a>{entry[i].stockName} <Loading show={true} />
+        <a>{entry[i].stockName} 
         </a>
         </div>
     </li>);

@@ -1,6 +1,6 @@
 import React from "react";
 import TodoList from "./TodoList";
-import Loading from 'react-loading-spinkit';
+//import Loading from 'react-loading-spinkit';
 import Stockstatus from './Stockstatus'
 
 
