@@ -53,20 +53,25 @@ let newArray = [...e];
 console.log(newArray);
 newArray.map((x) =>{
 console.log(x.stockName);
-let url = createUrl(this.state, x.stockName);
+fetch(createUrl(this.state, x.stockName))
+  .then(d => d.json())
+  .then(
 
-newArray.push(
-  {
-    ,
-  }
-)
-console.log(newArray);
+
+  d => {
+    
+    this.setState(prevState => ({
+      stockList: [...prevState.stockList, d]
+    })); 
+    console.log(this.state.stockList);
 }
 )
-} 
-
-};
-  
+}
+)
+return ("hee"); 
+}
+  }
+   
 
   render() {
 return (
