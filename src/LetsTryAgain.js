@@ -12,17 +12,105 @@ import {
   View,
 } from 'react-native';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'baseline'
 
-
+  }
+});
 
 const createUrl = (e, stock) => {
   return e.Baseurl + "function=" + e.Function + "&symbol=" + stock + "&interval=" + e.Interval + "&apikey=" + e.Apikey;
 };
 
+const myfetch = (myUrl) => {
+ // console.log("empty");
+ return fetch(myUrl).then(
+    response => {
+     //  if (response.status === 200)
+         if (response.ok)
+        { console.log("ok");
+
+       /*
+        if (response.includes("Invalid API call."))
+        // handle this        
+        //Error Message: "Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_INTRADAY."
+        {
+          console.log("Invalid API call. Please retry or visit the documentation (https://www.alphavantage.co/documentation/) for TIME_SERIES_INTRADAY.");
+          throw Error("Error");
+        }
+        */
+       // console.log("we are trying",response.json());
+
+        return response;
+      };
+      if (response.status !== 200) {
+        console.log(
+          "Looks like there was a problem. Status Code: " + response.status
+        );
+        throw Error("Network request failed");
+      }
+      console.log("we are here");
+      return "not ok";
+    });
+}
+
+
+const ResponseError = () => { console.log("ResponseError")};
+const NotFoundError = () => { console.log("NotFoundError") };
+const HttpError = () => { console.log("HttpError")};
+const NetworkError = () => { console.log("NetworkError")};
+
+function testGet(url) {
+  return fetch(url).then(response => {
+    if (response.ok) {
+      const contentType = response.headers.get('Content-Type') || '';
+console.log("cont",contentType);
+      if (contentType.includes('application/json')) {
+        let temp =response;
+        console.log(temp);
+        return response.json()
+        .catch(error => {
+          return Promise.reject(new ResponseError('Invalid JSON: ' + error.message));
+        });
+      }
+
+      if (contentType.includes('text/html')) {
+        return response.text().then(html => {
+          return {
+            page_type: 'generic',
+            html: html
+          };
+        }).catch(error => {
+          return Promise.reject(new ResponseError('HTML error: ' + error.message));
+        })
+      }
+
+      return Promise.reject(new ResponseError('Invalid content type: ' + contentType));
+    }
+
+    if (response.status === 404) {
+      return Promise.reject(new NotFoundError('Page not found: ' + url));
+    }
+
+    return Promise.reject(new HttpError('HTTP error: ' + response.status));
+  }).catch(error => {
+    return Promise.reject(new NetworkError(error.message));
+  });
+}
+
+
+
+
+
 class SuperInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      result: [],
       stockList: this.props.stocks,
       Baseurl: "https://www.alphavantage.co/query?",
       Function: "TIME_SERIES_INTRADAY",
@@ -30,10 +118,35 @@ class SuperInfo extends React.Component {
       Interval: "1min",
       Apikey: this.props.apikey
     };
-
     //this.refreshStocks = this.refreshStocks.bind(this);
   };
   componentDidMount() {
+
+    const updateStockData = (stockName, stockData) => {
+    //  console.log("List", this.state.stockList);
+    //  console.log("name", stockName);
+    //  console.log("data", stockData);
+      this.setState({
+        stockList: this.state.stockList.map(
+          (stockList) => stockList.stockName === stockName ? Object.assign({}, stockList, { stockData: stockData }) : stockList
+        )
+      })
+    };
+
+    const updateStockstatus = (stockName, status) => {
+        console.log("Listan1", this.state.stockList);
+        console.log("name1", stockName);
+        console.log("data1", status);
+      this.setState({
+        stockList: this.state.stockList.map(
+          (stockList) => stockList.stockName === stockName ? Object.assign({}, stockList, { loading: true }) : stockList
+        )
+      })
+
+      console.log("Listan2", this.state.stockList);
+    };
+
+
 
     function insertItem(array, action) {
       let newArray = array.slice();
@@ -47,31 +160,41 @@ class SuperInfo extends React.Component {
       return newArray;
     }
 
-    
-this.refreshStocks = (e) => {
-let newArray = [...e];
-console.log(newArray);
-newArray.map((x) =>{
-console.log(x.stockName);
-fetch(createUrl(this.state, x.stockName))
-  .then(d => d.json())
+this.refreshStocks = () => {
+let newArray = [...this.state.stockList];
+//console.log("newA",newArray);
+newArray.map((x) => {
+  updateStockstatus(x.stockName, true);
+  console.log("stocklist status", x.stockName, this.state.stockList);
+
+//console.log(x.stockName);
+//console.log("myur",createUrl(this.state, x.stockName));
+//let asd = testGet(createUrl(this.state, x.stockName));
+
+let data = myfetch(createUrl(this.state, x.stockName));
+data.then(d => d.json())
   .then(
 
-
   d => {
-    
-    this.setState(prevState => ({
-      stockList: [...prevState.stockList, d]
-    })); 
-    console.log(this.state.stockList);
+    updateStockData(x.stockName, d);
+  //  console.log("stockname", x.stockName);
+    console.log("stocklist", x.stockName,this.state.stockList);
+   // this.setState(prevState => ({
+   //   result: [...prevState.result, d]
+   // }))
+  //  console.log("res1", this.state.result);
+  //  console.log("res1", this.state.stocklist);
+  return ("hello");
+   } );
+
+//fetch(createUrl(this.state, x.stockName)).json
+
 }
 )
+
 }
-)
-return ("hee"); 
 }
-  }
-   
+
 
   render() {
 return (
@@ -118,15 +241,6 @@ return (
 
 export default SuperInfo;
 
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'baseline'
-
-  }
-});
 
 
 //<div key={x.id} >

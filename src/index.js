@@ -29,9 +29,10 @@ export default class App3 extends React.Component {
           value: "120000",
           date: "2018-12-31",
           url: "",
-          loading: false,
+          loading: true,
+          error: false,
           status: "need_update",
-          stockdata: [{asd: "asd"}]
+          stockData: [{asd: "asd"}]
         },
         { id: 2,
           stockName: "MSFT",
@@ -42,7 +43,7 @@ export default class App3 extends React.Component {
           loading: true,
           error: false,
           status: "need_update",
-          stockdata: []
+          stockData: []
         }
       ],
       stockData: [],
@@ -74,7 +75,7 @@ export default class App3 extends React.Component {
       date: this.state.date,
       url: "",
       status: "need_update",
-      stockdata:[]
+      stockData:[]
     });
  
 
@@ -86,7 +87,7 @@ export default class App3 extends React.Component {
       date: "",
       url: "",
       status: "",
-      stockdata: []
+      stockData: []
     });
   };
 
@@ -107,6 +108,7 @@ export default class App3 extends React.Component {
         />
         <TodoItems entries={this.state.items} />
         <SuperInfo apikey="xxx" stocks={this.state.items}/>
+        <Getinfo apikey="xx" stocks={this.state.items} />
        
       </div>
     );
